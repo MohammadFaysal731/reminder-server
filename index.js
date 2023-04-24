@@ -27,7 +27,7 @@ async function run() {
       const items = await itemsCollection.find().toArray();
       res.send(items);
     })
-    //this api for get all items
+    //this api for get single item
     app.get('/item/:id', async(req,res)=>{
       const id =req.params.id;
       const query ={_id:new ObjectId(id)} 
@@ -40,7 +40,13 @@ async function run() {
       const addedItem = await itemsCollection.insertOne(itemData);
       res.send(addedItem);
     })
-
+    // this api for delete item 
+    app.delete('/item/:id',async(req,res)=>{
+      const id =req.params.id;
+      const query ={_id:new ObjectId(id)}
+      const deletedItem = await itemsCollection.deleteOne(query);
+      res.send(deletedItem)
+    })
   } 
   finally {
   
