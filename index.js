@@ -44,6 +44,18 @@ async function run() {
       const addedItem = await itemsCollection.insertOne(itemData);
       res.send(addedItem);
     });
+    //this api for remove make item
+    app.patch("/item/:id", async (req, res) => {
+      const id = req.params.id;
+      const filter = { _id: new ObjectId(id) };
+      const updateDoc = {
+        $set: {
+          mark: "",
+        },
+      };
+      const markedItem = await itemsCollection.updateOne(filter,updateDoc,);
+      res.send(markedItem);
+    });
     //this api for add make item
     app.put("/item/:id", async (req, res) => {
       const id = req.params.id;
